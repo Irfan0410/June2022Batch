@@ -1,5 +1,6 @@
 package utility;
 
+import java.util.Hashtable;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -10,64 +11,90 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 
+import cucumbermap.ConfigReader;
+
+
+
 public class SeleniumOperations 
 {
 	public static WebDriver driver=null;
+	
+	public static ConfigReader config;
 //browserLaunch
-	           public static void browserLaunch(Object[]inputParameters)
+	public static Hashtable<String,Object> outputParameters=new Hashtable<String,Object>();
+	
+	           public static Hashtable<String,Object> browserLaunch(Object[]inputParameters)
 	           { 
 	        	  try{
 	        	   String bName=(String) inputParameters[0];
-	        	   String webDriverExePath=(String) inputParameters[1];
+	        	    
 	         if(bName.equalsIgnoreCase("Chrome"))
 	        	 {	
-	        	// driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-	        	   System.setProperty("webdriver.chrome.driver", webDriverExePath);
+	        	 
+	               config=new ConfigReader();
+	        	
+	        	   System.setProperty("webdriver.chrome.driver",config.getDriverPathChrome());
 	        	   driver=new ChromeDriver();
 	        	   driver.manage().window().maximize();
 	        	 }
 	         else if(bName.equalsIgnoreCase("Firefox"))
 	        	 {
-	        	// driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-	        		 System.setProperty("webdriver.gecko.driver", webDriverExePath);
+	        	
+	        		 System.setProperty("webdriver.gecko.driver",config.getDriverPathFF());
 		        	   driver=new FirefoxDriver();
 		        	   driver.manage().window().maximize();
 	        	 }
+	         outputParameters.put("STATUS", "Pass");
+	         outputParameters.put("MESSAGE", "Method used:browserLaunch , Input Given: " + inputParameters[0].toString());
 	        	  }
 	        	  catch(Exception e)
 	        	  {
-	        		  System.out.println(e);
+	        		  outputParameters.put("STATUS", "Fail");
+	     	          outputParameters.put("MESSAGE", "Method used:browserLaunch , Input Given: " + inputParameters[0].toString());
 	        	  }
+	        	  return outputParameters;
 	           }
 //openApplication           
-	           public static void openApplication(Object[]inputParameters)
+	           public static Hashtable<String,Object> openApplication()
 	           {
 	        	   try{
-	        		  // driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-	        	   String strgUrl=(String)inputParameters[0];
-	        	   driver.get(strgUrl);
-	        	   }catch(Exception e)
-	           {
-	        	   System.out.println(e);
-	           }
+	        		   
+	        		
+	        	   driver.get(config.getApplicationUrl());
+	        	   
+	        	   outputParameters.put("STATUS", "Pass");
+	  	           outputParameters.put("MESSAGE", "Method used:openApplication ,Input Given: " + config.getApplicationUrl().toString());
+	        	   driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 	        	   }
+	        	   catch(Exception e)
+	           {
+	        	   outputParameters.put("STATUS", "Fail");
+	        	   outputParameters.put("MESSAGE", "Method used:openApplication ,Input Given: " + config.getApplicationUrl().toString());
+	           }
+	        	   return outputParameters;
+	           }
 	           
 //clickOnElement 
-	           public static void clickOnElement(Object[]inputParameters)
+	           public static Hashtable<String,Object> clickOnElement(Object[]inputParameters)
 	           {
 	        try{
-	        	//driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+	        	driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 	        	   String Locator=(String) inputParameters[0];
-	        	   driver.findElement(By.xpath(Locator)).click();     
+	        	   driver.findElement(By.xpath(Locator)).click();
+	        	   
+	        	   outputParameters.put("STATUS", "Pass");
+	  	           outputParameters.put("MESSAGE", "Method used:clickOnElement , Input Given: " + inputParameters[0].toString()); 
 	        	}
 	       catch(Exception e)
 	        	   {
-	        	      System.out.println(e);
+	    	         outputParameters.put("STATUS", "Fail");
+     	             outputParameters.put("MESSAGE", "Method used:clickOnElement , Input Given: " + inputParameters[0].toString());
 	        	   }
+	        return outputParameters;
 	           }
 	           
 //mouseOver
-	           public static void mouseOverAction(Object[]inputParameters)
+	           public static Hashtable<String,Object> mouseOverAction(Object[]inputParameters)
 	           {
 	        	   try{
 	        		//   driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
@@ -77,26 +104,41 @@ public class SeleniumOperations
 	        	    WebElement mouseover=driver.findElement(By.xpath(Locator));
 	        	    
 	        	    act.moveToElement(mouseover).build().perform();
-	        }catch(Exception e)
+	        	    
+	        	    outputParameters.put("STATUS", "Pass");
+		  	        outputParameters.put("MESSAGE", "Method used:mouseOverAction , Input Given: " + inputParameters[0].toString()); 
+	        }
+	        	   catch(Exception e)
 	        	   {
-	        	   System.out.println(e);
+	        		   outputParameters.put("STATUS", "Fail");
+	     	           outputParameters.put("MESSAGE", "Method used:mouseOverAction , Input Given: " + inputParameters[0].toString());
 	        	   }
+	        	   return outputParameters;
 	           }
 //sendKeys
-	           public static void sendText(Object[]inputParameters)
-	           {try{
+	           public static Hashtable<String,Object> sendText(Object[]inputParameters)
+	           {
+	         try{
 	        	   String locator=(String) inputParameters[0];
 	        	   String sendText=(String) inputParameters[1];
-	        //	   driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+	        	   driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);
 	        	   driver.findElement(By.xpath(locator)).sendKeys(sendText);
-	           }catch(Exception e)
-	           {
-	        	   System.out.println(e);
+	        	   
+	        	   outputParameters.put("STATUS", "Pass");
+		  	       outputParameters.put("MESSAGE", "Method used:sendText , Input Given: " + inputParameters[0].toString()); 
 	           }
+	           catch(Exception e)
+	           {
+	        	   outputParameters.put("STATUS", "Fail");
+     	           outputParameters.put("MESSAGE", "Method used:sendText , Input Given: " + inputParameters[0].toString());
+	           }
+	           return outputParameters;
 	           }
 //Validation
-	           public static void validation(Object[]inputParameters)
+	           public static Hashtable<String,Object> validation(Object[]inputParameters)
 	           {
+	        try{	 driver.manage().timeouts().implicitlyWait(config.getImplicitlyWait(), TimeUnit.SECONDS);  
+	        
 	        	   String xpath=(String) inputParameters[0];                               
 	        	   String givenText=(String) inputParameters[1];                           
 	       
@@ -109,6 +151,16 @@ public class SeleniumOperations
 	        {
 	        	System.out.println("Test Case Fail");
 	        }
+	           outputParameters.put("STATUS", "Pass");
+	  	       outputParameters.put("MESSAGE", "Method used:validation , Input Given: " + inputParameters[1].toString()); 
+	        }
+	        catch(Exception e)
+	        {
+	           outputParameters.put("STATUS", "Fail");
+  	           outputParameters.put("MESSAGE", "Method used:validation , Input Given: " + inputParameters[1].toString());
+
+	        }
+			return outputParameters;
 	           }
 	           
 	      

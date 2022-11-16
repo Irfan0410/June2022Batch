@@ -51,50 +51,36 @@ public class Tempt
     //Click Login
     driver.findElement(By.xpath("(//*[text()='Login'])[3]")).click();
   
-   
+ /* Manage Address
+    driver.findElementByXPath("//*[text()='Manage Addresses']").click();
+    Thread.sleep(10000);
+//Add Addresses
+    driver.findElement(By.xpath("//*[text()='ADD ADDRESSES']")).click();
+//Enter Name
+    driver.findElementByXPath("//*[@name='name']").sendKeys("Irfan Kamil Shaikh.");
+//Enter Mob No.
+    driver.findElement(By.xpath("//*[@name='phone']")).sendKeys("9552152728");
+//Enter PinCode
+    driver.findElement(By.xpath("//*[@name='pincode']")).sendKeys("413716");
+//Enter Address
+    driver.findElement(By.xpath("//*[@name='addressLine1']")).sendKeys("A/P: Ambi Store, Deolali Pravara, Tal-Rahuri, Dist-Ahmednagar.");
+//Enter City Name
+    //driver.findElement(By.xpath("//*[@tabindex='6']")).sendKeys("Rahuri");
+    
+//Create Select Class
+    Select sel=new Select(driver.findElement(By.xpath("//*[@name='state']")));
+    sel.selectByValue("Maharashtra");
+//Click On Address Type
+    driver.findElement(By.xpath("//*[text()='Home']")).click();
+    Thread.sleep(5000);
+//Click On Save Button
+    driver.findElementByXPath("(//*[@type='button'])[2]").click();
+//Click On Logout Button   
+    driver.findElementByXPath("//*[text()='Logout']").click();
  
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   //"//*[@class='_2IX_2- VJZDxU']"
-   
-   
-   
-   /* driver.findElementByXPath("//*[text()='Manage Addresses']").click();
-   
-   driver.findElementByXPath("//*[text()='ADD ADDRESSES']").click();
-   
-   driver.findElementByXPath("//*[@name='name']").sendKeys("Irfan Kmail Shaikh.");
-   
-   driver.findElementByXPath("//*[@name='phone']").sendKeys("9552152728");
-   
-   driver.findElementByXPath("//*[@name='pincode']").sendKeys("413716");
-   
-   driver.findElementByXPath("(//*[@class='_1w3ZZo _2mFmU7'])[4]").sendKeys("Deolali Pravara");
-   
-   driver.findElementByXPath("//*[@name='addressLine1']").sendKeys("A/P: Deolali Pravara, Tal- Rahuri, Dist- Ahmednagar.");
-   
-   driver.findElementByXPath("//*[@tabindex='6']").sendKeys("Ahmednagar");
-   
-   Select sel=new Select(driver.findElementByXPath("//*[@name='state']"));
-   
-   sel.selectByValue("Maharashtra");
-   
-   driver.findElementByXPath("//*[text()='Home']").click();        */
-    	 
-    	 
+   */
+
     	 
 	}
 }
